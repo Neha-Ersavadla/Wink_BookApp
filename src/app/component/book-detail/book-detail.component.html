@@ -1,0 +1,23 @@
+
+  <div *ngIf="book" class="book-detail-container">
+    <div class="book-image">
+      <img
+      *ngIf="book.volumeInfo.imageLinks?.thumbnail"
+      [src]="book.volumeInfo.imageLinks.thumbnail.replace('http://', 'https://')"
+      alt="{{ book.volumeInfo.title }}"
+    >
+    <img
+      *ngIf="!book.volumeInfo.imageLinks?.thumbnail"
+      src="assets/placeholder_image.png"
+      alt="{{ book.volumeInfo.title }}"
+      class="placeholder-image"
+    >
+    </div>
+    <div class="book-details">
+      <h2>{{ book.volumeInfo.title }}</h2>
+      <div [innerHTML]="sanitizeHTML(book.volumeInfo.description)"></div>
+      <a [href]="book.volumeInfo.infoLink" target="_blank">More Info</a>
+    </div>
+  </div>
+  
+  

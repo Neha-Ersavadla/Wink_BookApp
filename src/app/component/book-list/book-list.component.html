@@ -1,0 +1,46 @@
+
+<div class="search-container">
+  <input class="search-input" type="text" [(ngModel)]="searchQuery" placeholder="Search" (input)="onSearchChange()" />
+  <button class="search-button" (click)="searchBooks()">Search</button>
+</div>
+
+
+
+<div class="row justify-content-center">
+<div class="col-lg-3 col-md-4 col-sm-6 col-12"*ngFor="let book of books">
+    <div class="book-card" (click)="navigateToDetail(book.id)"> 
+      <img
+      *ngIf="book.volumeInfo.imageLinks?.thumbnail"
+      [src]="book.volumeInfo.imageLinks.thumbnail.replace('http://', 'https://')"
+      alt="{{ book.volumeInfo.title }}"
+      class="book-image"
+    >
+    <img
+      *ngIf="!book.volumeInfo.imageLinks?.thumbnail"
+      src="assets/placeholder_image.png"
+      alt="{{ book.volumeInfo.title }}"
+      class="placeholder-image"
+    >
+      <h6>{{ book.volumeInfo.title }}</h6>
+      <p>{{ truncateDescription(book.volumeInfo.description) }}</p>
+    </div>
+</div>
+</div>
+
+
+
+<div>
+<mat-paginator
+  [length]="totalPages"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onPageOrPageSizeChange($event)"
+  (pageSize)="onPageOrPageSizeChange($event)"
+></mat-paginator>
+</div>
+
+
+
+
+
+
